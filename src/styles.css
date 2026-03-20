@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+body{
+font-family: Roboto, Arial, sans-serif;
+background:#f4f6f9;
+margin:0;
+padding:0;
+}
+.success-snackbar {
+  background-color: #4caf50; /* green */
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336; /* red */
+  color: white;
+}
