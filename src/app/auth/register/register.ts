@@ -3,13 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Auth,RegisterRequest,Role } from '../../services/auth';
 import {MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
-// import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common'; 
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule,RouterModule,MatSnackBarModule],
+  imports: [ CommonModule,FormsModule,RouterModule,MatSnackBarModule],
   templateUrl: './register.html',
-  styleUrl: './register.css',
+  styleUrls: ['./register.css'],
 })
 export class Register implements OnInit{
     name = '';
