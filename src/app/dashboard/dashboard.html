@@ -1,1 +1,151 @@
-<p>dashboard works!</p>
+<div class="dashboard-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">✚</span>
+      <span>Healthcare HMS</span>
+    </div>
+
+    <nav>
+      <ul>
+        <li class="active">📊 Dashboard</li>
+        <li (click)="goToDoctors()">👨‍⚕️ Doctors</li>
+        <li (click)="goToPatients()">🧑 Patients</li>
+        <li (click)="goToAppointments()" >📅 Appointments</li>
+        <li (click)="goToBilling()">💰 Billing</li>
+        <li (click)="goToReports()">📈 Reports</li>
+        <li (click)="goToSettings()">⚙️ Settings</li>
+      </ul>
+    </nav>
+
+    <div class="profile-card">
+      <img src="https://i.pravatar.cc/100" alt="">
+      <h4>Admin User</h4>
+      <p>Healthcare Admin</p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="topbar">
+      <input type="text" placeholder="Search..." />
+
+      <div class="header-actions">
+        <button>🔔</button>
+        <button>📅</button>
+        <button class="report-btn">Generate Report</button>
+
+        <div class="user-profile">
+          <img src="https://i.pravatar.cc/50" alt="">
+        </div>
+      </div>
+    </header>
+
+    <!-- Overview -->
+    <section>
+      <h2>Overview</h2>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <h4>Total Patients</h4>
+          <h1>{{totalPatients}}</h1>
+        </div>
+
+        <div class="stat-card">
+          <h4>Active Doctors</h4>
+          <h1>{{activeDoctors}}</h1>
+        </div>
+
+        <div class="stat-card">
+          <h4>Appointments</h4>
+          <h1>{{appointments}}</h1>
+        </div>
+
+        <div class="stat-card">
+          <h4>Revenue</h4>
+          <h1>${{revenue}}</h1>
+        </div>
+
+      </div>
+
+      <!-- Charts -->
+      <div class="chart-row">
+
+        <div class="chart-card large">
+          <h3>Appointment Trends</h3>
+          <canvas id="appointmentChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <h3>Revenue</h3>
+          <canvas id="revenueChart"></canvas>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="bottom-grid">
+
+        <div class="patient-card">
+          <h3>Patient Demographics</h3>
+
+          <table>
+            <tr>
+              <th>Age Group</th>
+              <th>Patients</th>
+            </tr>
+
+            <tr *ngFor="let p of demographics">
+              <td>{{p.age}}</td>
+              <td>{{p.count}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="schedule-card">
+          <h3>Doctor Schedule</h3>
+
+          <div class="doctor-list">
+            <div *ngFor="let d of doctors">
+              <strong>{{d.name}}</strong>
+              <span>{{d.time}}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Upcoming Appointments -->
+      <div class="appointments-card">
+        <h3>Upcoming Appointments</h3>
+
+        <table>
+          <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let a of upcomingAppointments">
+            <td>{{a.patient}}</td>
+            <td>{{a.doctor}}</td>
+            <td>{{a.date}}</td>
+            <td>{{a.time}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
