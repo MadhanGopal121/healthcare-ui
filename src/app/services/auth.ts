@@ -27,4 +27,8 @@ export class Auth {
   getRoles(): Observable<Role[]> {
     return this.http.get<Role[]>(`${this.baseUrl}/roles`);
   }
+
+  login(request: RegisterRequest): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login`, request);
+  };
 }
