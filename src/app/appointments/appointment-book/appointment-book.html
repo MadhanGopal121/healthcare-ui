@@ -1,1 +1,165 @@
-<p>appointment-book works!</p>
+<div class="appointment-container">
+
+  <div class="header">
+    <h2>Appointments Management</h2>
+  </div>
+
+  <!-- Appointment Form -->
+
+  <div class="appointment-form">
+
+    <select [(ngModel)]="appointment.patientId">
+
+      <option value="">Select Patient</option>
+
+      <option
+        *ngFor="let p of patients"
+        [value]="p.id">
+
+        {{p.name}}
+
+      </option>
+
+    </select>
+
+    <select [(ngModel)]="appointment.doctorId">
+
+      <option value="">Select Doctor</option>
+
+      <option
+        *ngFor="let d of doctors"
+        [value]="d.id">
+
+        {{d.name}}
+
+      </option>
+
+    </select>
+
+    <input
+      type="date"
+      [(ngModel)]="appointment.appointmentDate">
+
+    <input
+      type="time"
+      [(ngModel)]="appointment.appointmentTime">
+
+    <input
+      type="text"
+      placeholder="Reason"
+      [(ngModel)]="appointment.reason">
+
+    <select [(ngModel)]="appointment.status">
+
+      <option value="Scheduled">
+        Scheduled
+      </option>
+
+      <option value="Completed">
+        Completed
+      </option>
+
+      <option value="Cancelled">
+        Cancelled
+      </option>
+
+    </select>
+
+    <button
+      class="save-btn"
+      (click)="saveAppointment()">
+
+      {{isEdit ? 'Update Appointment' : 'Add Appointment'}}
+
+    </button>
+
+  </div>
+
+  <!-- Appointment Table -->
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+      <tr>
+
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Actions</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let a of appointments">
+
+        <td>
+          {{a.patient?.firstName}}
+          {{a.patient?.lastName}}
+        </td>
+
+        <td>
+          {{a.doctor?.user?.name}}
+        </td>
+
+        <td>
+          {{a.appointmentDate}}
+        </td>
+
+        <td>
+          {{a.appointmentTime}}
+        </td>
+
+        <td>
+          {{a.reason}}
+        </td>
+
+        <td>
+
+          <span
+            class="status"
+            [ngClass]="a.status.toLowerCase()">
+
+            {{a.status}}
+
+          </span>
+
+        </td>
+
+        <td>
+
+          <button
+            class="edit-btn"
+            (click)="editAppointment(a)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="delete-btn"
+            (click)="deleteAppointment(a.id)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
