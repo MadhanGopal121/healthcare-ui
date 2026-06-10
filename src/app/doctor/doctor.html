@@ -1,0 +1,126 @@
+<div class="doctor-container">
+
+  <div class="header">
+
+    <h2>Doctors Management</h2>
+
+  </div>
+
+  <div class="doctor-form">
+
+    <input
+      type="text"
+      placeholder="First Name"
+      [(ngModel)]="doctor.firstName">
+
+    <input
+      type="text"
+      placeholder="Last Name"
+      [(ngModel)]="doctor.lastName">
+
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="doctor.email">
+
+    <input
+      type="password"
+      placeholder="Password"
+      [(ngModel)]="doctor.password">
+
+    <input
+      type="text"
+      placeholder="Phone"
+      [(ngModel)]="doctor.phone">
+
+    <input
+      type="text"
+      placeholder="Specialization"
+      [(ngModel)]="doctor.specialization">
+
+    <input
+      type="text"
+      placeholder="Qualification"
+      [(ngModel)]="doctor.qualification">
+
+    <input
+      type="number"
+      placeholder="Experience"
+      [(ngModel)]="doctor.experienceYears">
+
+    <input
+      type="text"
+      placeholder="License Number"
+      [(ngModel)]="doctor.licenseNumber">
+
+    <button
+      class="save-btn"
+      (click)="saveDoctor()">
+
+      {{ isEdit ? 'Update Doctor' : 'Add Doctor' }}
+
+    </button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+      <tr>
+
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Specialization</th>
+        <th>Qualification</th>
+        <th>Experience</th>
+        <th>Actions</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let d of doctors">
+
+        <td>{{d.user?.name}}</td>
+
+        <td>{{d.user?.email}}</td>
+
+        <td>{{d.phone}}</td>
+
+        <td>{{d.specialization}}</td>
+
+        <td>{{d.qualification}}</td>
+
+        <td>{{d.experienceYears}}</td>
+
+        <td>
+
+          <button
+            class="edit-btn"
+            (click)="editDoctor(d)">
+            Edit
+          </button>
+
+          <button
+            class="delete-btn"
+            (click)="deleteDoctor(d.id)">
+            Delete
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
