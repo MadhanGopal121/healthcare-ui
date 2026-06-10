@@ -1,1 +1,124 @@
-<p>patient-list works!</p>
+<div class="patient-container">
+
+  <div class="header">
+    <h2>Patients Management</h2>
+  </div>
+
+  <div class="patient-form">
+
+    <input
+      type="text"
+      placeholder="First Name"
+      [(ngModel)]="patient.firstName">
+
+    <input
+      type="text"
+      placeholder="Last Name"
+      [(ngModel)]="patient.lastName">
+
+    <select [(ngModel)]="patient.gender">
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <input
+      type="number"
+      placeholder="Age"
+      [(ngModel)]="patient.age">
+
+    <input
+      type="text"
+      placeholder="Blood Group"
+      [(ngModel)]="patient.bloodGroup">
+
+    <input
+      type="text"
+      placeholder="Mobile"
+      [(ngModel)]="patient.mobile">
+
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="patient.email">
+
+    <input
+      type="text"
+      placeholder="Address"
+      [(ngModel)]="patient.address">
+
+    <input
+      type="text"
+      placeholder="Emergency Contact"
+      [(ngModel)]="patient.emergencyContact">
+
+    <button
+      class="save-btn"
+      (click)="savePatient()">
+
+      {{ isEdit ? 'Update Patient' : 'Add Patient' }}
+
+    </button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Blood Group</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let p of patients">
+
+        <td>
+          {{p.firstName}} {{p.lastName}}
+        </td>
+
+        <td>{{p.gender}}</td>
+
+        <td>{{p.age}}</td>
+
+        <td>{{p.bloodGroup}}</td>
+
+        <td>{{p.mobile}}</td>
+
+        <td>{{p.email}}</td>
+
+        <td>
+
+          <button
+            class="edit-btn"
+            (click)="editPatient(p)">
+            Edit
+          </button>
+
+          <button
+            class="delete-btn"
+            (click)="deletePatient(p.id)">
+            Delete
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
