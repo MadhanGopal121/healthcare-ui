@@ -1,1 +1,111 @@
-<p>settings works!</p>
+<div class="setting-container">
+
+  <div class="header">
+    <h2>Hospital Settings</h2>
+  </div>
+
+  <div class="setting-form">
+
+    <input
+      type="text"
+      placeholder="Hospital Name"
+      [(ngModel)]="setting.hospitalName">
+
+    <input
+      type="text"
+      placeholder="Hospital Address"
+      [(ngModel)]="setting.hospitalAddress">
+
+    <input
+      type="text"
+      placeholder="Hospital Phone"
+      [(ngModel)]="setting.hospitalPhone">
+
+    <input
+      type="email"
+      placeholder="Hospital Email"
+      [(ngModel)]="setting.hospitalEmail">
+
+    <input
+      type="file"
+      placeholder="Hospital Logo URL"
+      [(ngModel)]="setting.hospitalLogo">
+
+    <input
+      type="text"
+      placeholder="Currency"
+      [(ngModel)]="setting.currency">
+
+    <input
+      type="text"
+      placeholder="Timezone"
+      [(ngModel)]="setting.timezone">
+
+    <button
+      class="save-btn"
+      (click)="saveSetting()">
+
+      {{isEdit ? 'Update Setting' : 'Save Setting'}}
+
+    </button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+      <tr>
+
+        <th>Hospital</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Currency</th>
+        <th>Timezone</th>
+        <th>Actions</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let s of settings">
+
+        <td>{{s.hospitalName}}</td>
+        <td>{{s.hospitalPhone}}</td>
+        <td>{{s.hospitalEmail}}</td>
+        <td>{{s.currency}}</td>
+        <td>{{s.timezone}}</td>
+
+        <td>
+
+          <button
+            class="edit-btn"
+            (click)="editSetting(s)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="delete-btn"
+            (click)="deleteSetting(s.id)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -1,1 +1,153 @@
-<p>billing works!</p>
+<div class="billing-container">
+
+  <div class="header">
+    <h2>Billing Management</h2>
+  </div>
+
+  <div class="billing-form">
+
+    <!-- Patient Dropdown -->
+    <select [(ngModel)]="bill.patientId">
+
+      <option value="">
+        Select Patient
+      </option>
+
+      <option
+        *ngFor="let p of patients"
+        [value]="p.id">
+
+        {{p.name}}
+
+      </option>
+
+    </select>
+
+    <!-- Consultation Fee -->
+
+    <input
+      type="number"
+      placeholder="Consultation Fee"
+      [(ngModel)]="bill.consultationFee">
+
+    <!-- Lab Fee -->
+
+    <input
+      type="number"
+      placeholder="Lab Fee"
+      [(ngModel)]="bill.labFee">
+
+    <!-- Medicine Fee -->
+
+    <input
+      type="number"
+      placeholder="Medicine Fee"
+      [(ngModel)]="bill.medicineFee">
+
+    <!-- Payment Status -->
+
+    <select [(ngModel)]="bill.paymentStatus">
+
+      <option value="PAID">
+        PAID
+      </option>
+
+      <option value="PENDING">
+        PENDING
+      </option>
+
+    </select>
+
+    <button
+      class="save-btn"
+      (click)="saveBill()">
+
+      {{isEdit ? 'Update Bill' : 'Create Bill'}}
+
+    </button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+      <tr>
+
+        <th>Patient</th>
+        <th>Consultation</th>
+        <th>Lab</th>
+        <th>Medicine</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Bill Date</th>
+        <th>Actions</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let b of bills">
+
+        <td>
+          {{b.patient?.firstName}}
+          {{b.patient?.lastName}}
+        </td>
+
+        <td>₹{{b.consultationFee}}</td>
+
+        <td>₹{{b.labFee}}</td>
+
+        <td>₹{{b.medicineFee}}</td>
+
+        <td>
+          ₹{{b.totalAmount}}
+        </td>
+
+        <td>
+
+          <span
+            class="status"
+            [ngClass]="b.paymentStatus.toLowerCase()">
+
+            {{b.paymentStatus}}
+
+          </span>
+
+        </td>
+
+        <td>{{b.billDate}}</td>
+
+        <td>
+
+          <button
+            class="edit-btn"
+            (click)="editBill(b)">
+
+            Edit
+
+          </button>
+
+          <button
+            class="delete-btn"
+            (click)="deleteBill(b.id)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -1,20 +1,93 @@
-import { Component,AfterViewInit } from '@angular/core';
+import { Component,AfterViewInit,OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
+import { DashboardService } from '../services/dashboard-service';
+
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
+  styleUrls: ['./dashboard.css'],
 })
-export class Dashboard implements AfterViewInit {
+export class Dashboard implements AfterViewInit,OnInit {
 
-  constructor(private router: Router) {}
+  totalPatients = 0;
+  activeDoctors = 0;
+  appointments = 0;
+  revenue = 0;
 
+   demographics: any[] = [];
+
+  doctors: any[] = [];
+
+  upcomingAppointments: any[] = [];
+
+  appointmentChart: any;
+  revenueChart: any;
+
+   constructor(
+    private router: Router,
+    private dashboardService: DashboardService
+  ) {}
+
+ 
+  ngOnInit(): void {
+    this.loadDashboard();
+  }
+
+   loadDashboard() {
+
+    this.dashboardService
+      .getDashboard()
+      .subscribe({
+
+        next: (res: any) => {
+
+          this.totalPatients =
+            res.totalPatients;
+
+          this.activeDoctors =
+            res.activeDoctors;
+
+          this.appointments =
+            res.totalAppointments;
+
+          this.revenue =
+            res.totalRevenue;
+
+          this.demographics =
+            res.demographics || [];
+
+          this.doctors =
+            res.doctorSchedules || [];
+
+          this.upcomingAppointments =
+            res.upcomingAppointments || [];
+
+          this.loadCharts(
+            res.appointmentTrends || []
+          );
+
+        },
+
+        error: (err) => {
+
+          console.error(
+            'Dashboard API Error',
+            err
+          );
+
+        }
+
+      });
+
+  }
+ ngAfterViewInit(): void {}
   goToDoctors() {
     this.router.navigate(['/doctors']);
   }
@@ -39,63 +112,62 @@ export class Dashboard implements AfterViewInit {
     this.router.navigate(['/settings']);
   }
 
-    totalPatients = 178;
-    activeDoctors = 33;
-    appointments = 76;
-    revenue = 28156;
+  loadCharts(
+    trends: any[]
+  ) {
 
-     demographics = [
-    { age: '18-30', count: 220 },
-    { age: '31-45', count: 195 },
-    { age: '46-60', count: 175 },
-    { age: '61-70', count: 130 },
-    { age: '70+', count: 100 }
-  ];
+    const labels =
+      trends.map(
+        (t: any) => t.month
+      );
 
-    doctors = [
-    { name: 'Dr. Smith', time: '10:00 AM' },
-    { name: 'Dr. Kumar', time: '12:00 PM' },
-    { name: 'Dr. John', time: '02:00 PM' }
-  ];
+    const values =
+      trends.map(
+        (t: any) => t.count
+      );
 
-  upcomingAppointments = [
-    {
-      patient: 'John Doe',
-      doctor: 'Dr. Smith',
-      date: '2026-06-10',
-      time: '10:00 AM'
-    },
-    {
-      patient: 'Mary Jane',
-      doctor: 'Dr. Kumar',
-      date: '2026-06-10',
-      time: '12:00 PM'
+    if (this.appointmentChart) {
+      this.appointmentChart.destroy();
     }
-  ];
 
-  ngAfterViewInit() {
+    if (this.revenueChart) {
+      this.revenueChart.destroy();
+    }
 
-    new Chart('appointmentChart', {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-          label: 'Appointments',
-          data: [100, 140, 180, 220, 200, 260]
-        }]
-      }
-    });
+    this.appointmentChart =
+      new Chart(
+        'appointmentChart',
+        {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Appointments',
+                data: values
+              }
+            ]
+          }
+        }
+      );
 
-    new Chart('revenueChart', {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-          label: 'Revenue',
-          data: [5000, 8000, 12000, 15000, 18000, 28156]
-        }]
-      }
-    });
+    this.revenueChart =
+      new Chart(
+        'revenueChart',
+        {
+          type: 'bar',
+          data: {
+            labels: ['Revenue'],
+            datasets: [
+              {
+                label: 'Revenue',
+                data: [this.revenue]
+              }
+            ]
+          }
+        }
+      );
+
   }
 
 }

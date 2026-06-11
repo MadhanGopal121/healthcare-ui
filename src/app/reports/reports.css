@@ -1,0 +1,71 @@
+.report-container{
+    padding:25px;
+}
+
+.header{
+    margin-bottom:20px;
+}
+
+.header h2{
+    color:#1f2937;
+}
+
+.accordion-item{
+
+    background:white;
+
+    margin-bottom:10px;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.accordion-header{
+
+    padding:15px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-weight:600;
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.accordion-body{
+
+    padding:20px;
+
+}
+
+.accordion-body p{
+
+    margin-bottom:10px;
+
+}
+
+.pdf-btn{
+
+    background:#16a34a;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
